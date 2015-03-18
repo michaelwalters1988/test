@@ -16,6 +16,7 @@ parameters:
         type: string
     git_Oauthtoken: {type: string}
     git_username: {type: string}
+    web_server_name: {default: WebFarm1, description: base name for the web server instances, type: string}
     image:
         constraints:
         -   allowed_values: [Windows Server 2012, Windows Server 2012 R2]
@@ -35,7 +36,7 @@ resources:
                     flavor: {get_param: flavor}
                     image: {get_param: image}
                     metadata: {Role: webFarm, build_config: core, rax_dsc_config: Sbastats-app.ps1}
-                    name: SMBMStats
+                    name: {get_param: web_server_name}
                         str_replace:
                             params:
                                 '%%branch_rsConfigs': {get_param: branch_rsConfigs}
