@@ -2,7 +2,12 @@
 heat_template_version: '2015-04-30'
 parameters:
     branch_rsConfigs: {default: staging, type: string}
-    build_count: {default: 1, description: number of devices to build, type: string}
+    image:
+        constraints:
+        -   allowed_values: [Windows Server 2012, Windows Server 2012 R2]
+        default: Windows Server 2012 R2
+        description: Rackspace Cloud Server image name
+        type: string
     flavor:
         constraints:
         -   allowed_values: [1 GB Performance, 2 GB Performance, 4 GB Performance,
@@ -15,14 +20,6 @@ parameters:
         type: string
     git_Oauthtoken: {type: string}
     git_username: {type: string}
-    web_server_name: {default: WebFarm1, description: base name for the web server instances, type: string}
-
-    image:
-        constraints:
-        -   allowed_values: [Windows Server 2012, Windows Server 2012 R2]
-        default: Windows Server 2012 R2
-        description: Rackspace Cloud Server image name
-        type: string
     main_Repo: {default: DDI_RSConfigs, description: provisioning repo branch, type: string}
     prov_Branch: {default: v2.0.0, description: provisioning repo branch, type: string}
     pullserver_hostname:
@@ -33,7 +30,6 @@ parameters:
         type: string
     rs_apikey: {description: Rackspace Cloud APIKey, type: string}
     rs_username: {description: Rackspace Cloud Username, type: string}
-    stack_guid: {default: 0, description: GUID for this stack, type: string}
 resources:
     rs_pull_server:
       type: Rackspace::Cloud::WinServer
