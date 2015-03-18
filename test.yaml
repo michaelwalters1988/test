@@ -37,8 +37,7 @@ resources:
                     flavor: {get_param: flavor}
                     image: {get_param: image}
                     metadata: {Role: webFarm, build_config: core, rax_dsc_config: Sbastats-app.ps1}
-                    name: {get_param: web_server_name}_%index%
-                    save_admin_pass: true
+                    name: {get_param: web_server_name}
                     user_data:
                         str_replace:
                             params:
