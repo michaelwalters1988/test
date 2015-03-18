@@ -30,14 +30,17 @@ parameters:
     stack_guid: {default: 0, description: GUID for this stack, type: string}
 resources:
     web_nodes:
-        properties:
-            count: {get_param: build_count}
-            resource_def:
+                type: Rackspace::Cloud::WinServer
                 properties:
+                    count: {get_param: build_count}
                     flavor: {get_param: flavor}
                     image: {get_param: image}
                     metadata: {Role: webFarm, build_config: core, rax_dsc_config: Sbastats-app.ps1}
-                    name: {get_param: web_server_name}
+                    root_name: &root 
+                      val: {get_param: web_server_name}
+                    name: &name
+                      root_name: *root
+                      rel_name: %index%
                     user_data:
                         str_replace:
                             params:
@@ -89,5 +92,3 @@ resources:
                                 Powershell.exe ""C:\DevOps\bootstrap.ps1"""
 
                                 start "C:\DevOps\DevOpsBoot.cmd"'
-                type: Rackspace::Cloud::WinServer
-        type: OS::Heat::ResourceGroup
