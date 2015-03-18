@@ -36,12 +36,7 @@ resources:
                     flavor: {get_param: flavor}
                     image: {get_param: image}
                     metadata: {Role: webFarm, build_config: core, rax_dsc_config: Sbastats-app.ps1}
-                    root_name: &root 
-                      val: {get_param: web_server_name}
-                    name: &name
-                      root_name: *root
-                      rel_name: %index%
-                    user_data:
+                    name: SMBMStats_%index%
                         str_replace:
                             params:
                                 '%%branch_rsConfigs': {get_param: branch_rsConfigs}
